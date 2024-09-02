@@ -1,6 +1,6 @@
 {
   "name": "wildberries-api",
-  "version": "1.0.0",
+  "version": "1.0.1",
   "description": "",
   "main": "dist/index.js",
   "scripts": {
@@ -14,7 +14,7 @@
     "email": "sachik-sergey@yandex.ru",
     "name": "Sergey Sachik"
   },
-  "repository": "falang-io/falang",
+  "repository": "serega3000/wildberries-api",
   "access": "public",
   "license": "MIT",
   "devDependencies": {
