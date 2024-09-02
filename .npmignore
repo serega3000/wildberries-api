@@ -1,0 +1,6 @@
+/node_modules
+/scripts
+/.env.example
+/.tsconfig.json
+/.env
+/.package-lock.json
