@@ -16,7 +16,8 @@
     "skipLibCheck": true,
     "outDir": "./dist",
     "declaration": true,
-    "declarationMap": true
+    "declarationMap": true,
+    "removeComments": true,
   },
   "include": [
     "src"
