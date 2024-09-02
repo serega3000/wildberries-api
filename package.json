@@ -1,5 +1,5 @@
 {
-  "name": "wbapi",
+  "name": "wildberries-api",
   "version": "1.0.0",
   "description": "",
   "main": "dist/index.js",

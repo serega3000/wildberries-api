@@ -2,10 +2,16 @@
 
 Typescript API для Wildberries, сгенерированное из Swagger. Без внешних зависимостей.
 
+Установка
+
+```bash
+npm install wildberries-api
+```
+
 Пример использования:
 
 ```typescript
-import { supplies } from 'wbapi';
+import { supplies } from 'wildberries-api';
 
 const api = new supplies.Api({
   baseApiParams: {
