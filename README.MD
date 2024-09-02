@@ -1,4 +1,4 @@
-# WBAPI
+# Wildberries API client
 
 Typescript API для Wildberries, сгенерированное из Swagger. Без внешних зависимостей.
 
