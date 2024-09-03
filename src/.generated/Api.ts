@@ -13,20 +13,20 @@ import * as returns from './api/returns';
 import * as documents from './api/documents';
 import * as wbd from './api/wbd';
 export class Api {
-  content: content.Api<unknown>['content']
-  prices: prices.Api<unknown>['api']
-  supplies: supplies.Api<unknown>['api']
-  marketplace: marketplace.Api<unknown>['api']
-  statistics: statistics.Api<unknown>['api']
-  analytics: analytics.Api<unknown>['api']
-  promotion: promotion.Api<unknown>['adv']
-  recommendations: recommendations.Api<unknown>['api']
-  feedbacksQuestions: feedbacksQuestions.Api<unknown>['api']
-  tariffs: tariffs.Api<unknown>['api']
-  buyersChat: buyersChat.Api<unknown>['api']
-  returns: returns.Api<unknown>['api']
-  documents: documents.Api<unknown>['api']
-  wbd: wbd.Api<unknown>['api']
+  content: content.Api<unknown>;
+  prices: prices.Api<unknown>;
+  supplies: supplies.Api<unknown>;
+  marketplace: marketplace.Api<unknown>;
+  statistics: statistics.Api<unknown>;
+  analytics: analytics.Api<unknown>;
+  promotion: promotion.Api<unknown>;
+  recommendations: recommendations.Api<unknown>;
+  feedbacksQuestions: feedbacksQuestions.Api<unknown>;
+  tariffs: tariffs.Api<unknown>;
+  buyersChat: buyersChat.Api<unknown>;
+  returns: returns.Api<unknown>;
+  documents: documents.Api<unknown>;
+  wbd: wbd.Api<unknown>;
   constructor(token: string) {
     const apiConfig: content.ApiConfig = {
       baseApiParams: {
@@ -36,19 +36,19 @@ export class Api {
       },
       baseUrl: 'https://supplies-api.wildberries.ru'
     }
-    this.content = (new content.Api(apiConfig)).content;
-    this.prices = (new prices.Api(apiConfig)).api;
-    this.supplies = (new supplies.Api(apiConfig)).api;
-    this.marketplace = (new marketplace.Api(apiConfig)).api;
-    this.statistics = (new statistics.Api(apiConfig)).api;
-    this.analytics = (new analytics.Api(apiConfig)).api;
-    this.promotion = (new promotion.Api(apiConfig)).adv;
-    this.recommendations = (new recommendations.Api(apiConfig)).api;
-    this.feedbacksQuestions = (new feedbacksQuestions.Api(apiConfig)).api;
-    this.tariffs = (new tariffs.Api(apiConfig)).api;
-    this.buyersChat = (new buyersChat.Api(apiConfig)).api;
-    this.returns = (new returns.Api(apiConfig)).api;
-    this.documents = (new documents.Api(apiConfig)).api;
-    this.wbd = (new wbd.Api(apiConfig)).api;
+    this.content = new content.Api(apiConfig);
+    this.prices = new prices.Api(apiConfig);
+    this.supplies = new supplies.Api(apiConfig);
+    this.marketplace = new marketplace.Api(apiConfig);
+    this.statistics = new statistics.Api(apiConfig);
+    this.analytics = new analytics.Api(apiConfig);
+    this.promotion = new promotion.Api(apiConfig);
+    this.recommendations = new recommendations.Api(apiConfig);
+    this.feedbacksQuestions = new feedbacksQuestions.Api(apiConfig);
+    this.tariffs = new tariffs.Api(apiConfig);
+    this.buyersChat = new buyersChat.Api(apiConfig);
+    this.returns = new returns.Api(apiConfig);
+    this.documents = new documents.Api(apiConfig);
+    this.wbd = new wbd.Api(apiConfig);
   }
 }

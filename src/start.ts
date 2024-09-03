@@ -11,7 +11,7 @@ if(typeof token !== 'string') {
 const api = new Api(token);
 
 const run = async() => {
-  const result = await api.supplies.v1WarehousesList();
+  const result = await api.supplies.api.v1WarehousesList();
   console.log(result.data);
   console.log('done');
   process.exit(1);

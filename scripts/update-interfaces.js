@@ -28,17 +28,8 @@ const run = async () => {
     indexImports.push(`import * as ${camel} from './${swItem.name}';`);
     indexExports.push(camel);
     apiImports.push(`import * as ${camel} from './api/${swItem.name}';`);
-    let apiPropItem = 'api';
-    switch(swItem.name) {
-      case 'content':
-        apiPropItem = 'content';
-        break;
-        case 'promotion':
-          apiPropItem = 'adv';
-          break;
-    }
-    apiProps.push(`${camel}: ${camel}.Api<unknown>['${apiPropItem}']`);
-    apiInits.push(`this.${camel} = (new ${camel}.Api(apiConfig)).${apiPropItem};`);
+    apiProps.push(`${camel}: ${camel}.Api<unknown>;`);
+    apiInits.push(`this.${camel} = new ${camel}.Api(apiConfig);`);
     console.log(`Generating for ${swItem.name}`);
     const itemHttpResult = await fetch(swItem.url);
     let itemContents = await itemHttpResult.text();
