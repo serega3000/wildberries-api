@@ -23,6 +23,7 @@ const run = async () => {
   const apiImports = [];
   const apiProps = [];
   const apiInits = [];
+  const apiGets = [];
   for(const swItem of allSwaggerItems) {
     const camel = makeCase(swItem.name);
     indexImports.push(`import * as ${camel} from './${swItem.name}';`);
@@ -35,6 +36,20 @@ const run = async () => {
     let itemContents = await itemHttpResult.text();
     itemContents = itemContents.replace(/\*\//g,'* /');
     let lastIndex = 0;
+
+    let apiPropItem = 'api';
+    switch(swItem.name) {
+      case 'content':
+        apiPropItem = 'content';
+        break;
+        case 'promotion':
+          apiPropItem = 'adv';
+          break;
+    }
+    apiGets.push(`get ${camel}() {`);
+    apiGets.push(`  return new ${camel}.Api(this.apiConfig).${apiPropItem};`);
+    apiGets.push('}');
+
     while(true) {
       const regex = /\/v[0-9]\/.*\n[ ]+servers:/g;
       const regex2 = /[ ]+(get|post|put|delete|patch):/g;
@@ -65,10 +80,6 @@ const run = async () => {
       },
       generateClient: true,
       silent: true,
-      extractingOptions: {
-        requestBodySuffix: ['asd'],
-        requestParamsSuffix: ['hello, world'],
-      }
     })
     .catch((e) => {
       console.error(e);
@@ -78,18 +89,19 @@ const run = async () => {
   const apiLines = [
     ...apiImports,
     'export class Api {',
-    ...apiProps.map(p => `  ${p}`),
-    '  constructor(token: string) {',
-    '    const apiConfig: content.ApiConfig = {',
+    '  readonly apiConfig: content.ApiConfig',
+    '  constructor(token: string, config?: content.ApiConfig) {',
+    '    this.apiConfig = {',
     '      baseApiParams: {',
     '        headers: {',
     '          \'Authorization\': token',
     '        },',
     '      },',
-    '      baseUrl: \'https://supplies-api.wildberries.ru\'',
+    '      baseUrl: \'https://supplies-api.wildberries.ru\',',
+    '      ...config,',
     '    }',
-    ...apiInits.map(p => `    ${p}`),
     '  }',
+    ...apiGets.map(p => `  ${p}`),
     '}',
 
   ];

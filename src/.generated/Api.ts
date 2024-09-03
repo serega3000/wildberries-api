@@ -13,42 +13,58 @@ import * as returns from './api/returns';
 import * as documents from './api/documents';
 import * as wbd from './api/wbd';
 export class Api {
-  content: content.Api<unknown>;
-  prices: prices.Api<unknown>;
-  supplies: supplies.Api<unknown>;
-  marketplace: marketplace.Api<unknown>;
-  statistics: statistics.Api<unknown>;
-  analytics: analytics.Api<unknown>;
-  promotion: promotion.Api<unknown>;
-  recommendations: recommendations.Api<unknown>;
-  feedbacksQuestions: feedbacksQuestions.Api<unknown>;
-  tariffs: tariffs.Api<unknown>;
-  buyersChat: buyersChat.Api<unknown>;
-  returns: returns.Api<unknown>;
-  documents: documents.Api<unknown>;
-  wbd: wbd.Api<unknown>;
-  constructor(token: string) {
-    const apiConfig: content.ApiConfig = {
+  readonly apiConfig: content.ApiConfig
+  constructor(token: string, config?: content.ApiConfig) {
+    this.apiConfig = {
       baseApiParams: {
         headers: {
           'Authorization': token
         },
       },
-      baseUrl: 'https://supplies-api.wildberries.ru'
+      baseUrl: 'https://supplies-api.wildberries.ru',
+      ...config,
     }
-    this.content = new content.Api(apiConfig);
-    this.prices = new prices.Api(apiConfig);
-    this.supplies = new supplies.Api(apiConfig);
-    this.marketplace = new marketplace.Api(apiConfig);
-    this.statistics = new statistics.Api(apiConfig);
-    this.analytics = new analytics.Api(apiConfig);
-    this.promotion = new promotion.Api(apiConfig);
-    this.recommendations = new recommendations.Api(apiConfig);
-    this.feedbacksQuestions = new feedbacksQuestions.Api(apiConfig);
-    this.tariffs = new tariffs.Api(apiConfig);
-    this.buyersChat = new buyersChat.Api(apiConfig);
-    this.returns = new returns.Api(apiConfig);
-    this.documents = new documents.Api(apiConfig);
-    this.wbd = new wbd.Api(apiConfig);
+  }
+  get content() {
+    return new content.Api(this.apiConfig).content
+  }
+  get prices() {
+    return new prices.Api(this.apiConfig).api
+  }
+  get supplies() {
+    return new supplies.Api(this.apiConfig).api
+  }
+  get marketplace() {
+    return new marketplace.Api(this.apiConfig).api
+  }
+  get statistics() {
+    return new statistics.Api(this.apiConfig).api
+  }
+  get analytics() {
+    return new analytics.Api(this.apiConfig).api
+  }
+  get promotion() {
+    return new promotion.Api(this.apiConfig).adv
+  }
+  get recommendations() {
+    return new recommendations.Api(this.apiConfig).api
+  }
+  get feedbacksQuestions() {
+    return new feedbacksQuestions.Api(this.apiConfig).api
+  }
+  get tariffs() {
+    return new tariffs.Api(this.apiConfig).api
+  }
+  get buyersChat() {
+    return new buyersChat.Api(this.apiConfig).api
+  }
+  get returns() {
+    return new returns.Api(this.apiConfig).api
+  }
+  get documents() {
+    return new documents.Api(this.apiConfig).api
+  }
+  get wbd() {
+    return new wbd.Api(this.apiConfig).api
   }
 }

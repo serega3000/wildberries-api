@@ -16,7 +16,7 @@ import { Api } from 'wildberries-api';
 const api = new Api(process.env.WB_TOKEN);
 
 const main = async() => {
-  const result = await api.supplies.api.v1WarehousesList();
+  const result = await api.supplies.v1WarehousesList();
   console.log(result.data);
   process.exit();
 };
