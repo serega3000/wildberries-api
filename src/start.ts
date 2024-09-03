@@ -1,5 +1,5 @@
 import 'dotenv/config';
-import { supplies } from './.generated/api';
+import { Api } from './.generated/Api';
 
 const token = process.env.WB_TOKEN;
 
@@ -8,17 +8,10 @@ if(typeof token !== 'string') {
   process.exit(1);
 }
 
-const api = new supplies.Api({
-  baseApiParams: {
-    headers: {
-      'Authorization': token
-    },
-  },
-  baseUrl: 'https://supplies-api.wildberries.ru'
-});
+const api = new Api(token);
 
 const run = async() => {
-  const result = await api.api.v1WarehousesList();
+  const result = await api.supplies.v1WarehousesList();
   console.log(result.data);
   console.log('done');
   process.exit(1);

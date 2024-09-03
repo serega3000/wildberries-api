@@ -20,9 +20,25 @@ const run = async () => {
   }
   const indexImports = [];
   const indexExports = [];
+  const apiImports = [];
+  const apiProps = [];
+  const apiInits = [];
   for(const swItem of allSwaggerItems) {
-    indexImports.push(`import * as ${makeCase(swItem.name)} from './${swItem.name}';`);
-    indexExports.push(makeCase(swItem.name));
+    const camel = makeCase(swItem.name);
+    indexImports.push(`import * as ${camel} from './${swItem.name}';`);
+    indexExports.push(camel);
+    apiImports.push(`import * as ${camel} from './api/${swItem.name}';`);
+    let apiPropItem = 'api';
+    switch(swItem.name) {
+      case 'content':
+        apiPropItem = 'content';
+        break;
+        case 'promotion':
+          apiPropItem = 'adv';
+          break;
+    }
+    apiProps.push(`${camel}: ${camel}.Api<unknown>['${apiPropItem}']`);
+    apiInits.push(`this.${camel} = (new ${camel}.Api(apiConfig)).${apiPropItem};`);
     console.log(`Generating for ${swItem.name}`);
     const itemHttpResult = await fetch(swItem.url);
     let itemContents = await itemHttpResult.text();
@@ -68,9 +84,28 @@ const run = async () => {
       process.exit(1);
     });
   }
+  const apiLines = [
+    ...apiImports,
+    'export class Api {',
+    ...apiProps.map(p => `  ${p}`),
+    '  constructor(token: string) {',
+    '    const apiConfig: content.ApiConfig = {',
+    '      baseApiParams: {',
+    '        headers: {',
+    '          \'Authorization\': token',
+    '        },',
+    '      },',
+    '      baseUrl: \'https://supplies-api.wildberries.ru\'',
+    '    }',
+    ...apiInits.map(p => `    ${p}`),
+    '  }',
+    '}',
+
+  ];
   const indexPath = path.resolve(process.cwd(), `./src/.generated/api/index.ts`);
   indexImports.push(`export{ ${indexExports.join(', ')}}`);
   fs.writeFileSync(indexPath, indexImports.join('\n'));
+  fs.writeFileSync(path.resolve(process.cwd(), `./src/.generated/Api.ts`), apiLines.join('\n'));
   console.log('Done');
   process.exit(0);
 };

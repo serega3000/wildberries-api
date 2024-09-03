@@ -11,19 +11,12 @@ npm install wildberries-api
 Пример использования:
 
 ```typescript
-import { supplies } from 'wildberries-api';
+import { Api } from 'wildberries-api';
 
-const api = new supplies.Api({
-  baseApiParams: {
-    headers: {
-      'Authorization': process.env.WB_TOKEN
-    },
-  },
-  baseUrl: 'https://supplies-api.wildberries.ru'
-});
+const api = new Api(process.env.WB_TOKEN);
 
 const main = async() => {
-  const result = await api.api.v1WarehousesList();
+  const result = await api.supplies.v1WarehousesList();
   console.log(result.data);
   process.exit();
 };
